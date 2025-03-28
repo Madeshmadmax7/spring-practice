@@ -1,11 +1,20 @@
 package com.example.proj2.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String title;
@@ -13,23 +22,29 @@ public class Book {
     private long price;
     private int quantity;
     
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Order> order;
+
     public Book(){
 
     }
 
-    public Book(Long id,String title,String author,long price,int quantity){
+    public Book(long id,String title,String author,long price,int quantity,List<Order> order){
         this.id=id;
         this.title=title;
         this.author=author;
         this.price=price;
         this.quantity=quantity;
+        this.order=order;
     }
 
-    public Book(String title,String author,long price,int quantity){
+    public Book(String title,String author,long price,int quantity,List<Order> order){
         this.title=title;
         this.author=author;
         this.price=price;
         this.quantity=quantity;
+        this.order=order;
     }
 
     public long getId() {
@@ -72,8 +87,18 @@ public class Book {
         this.quantity = quantity;
     }
 
-    public String toString(){
-        return id+" "+title+" "+author+" "+price+" "+quantity;
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [id=" + id + ", title=" + title + ", author=" + author + ", price=" + price + ", quantity="
+                + quantity + ", order=" + order + "]";
     }
 
 }

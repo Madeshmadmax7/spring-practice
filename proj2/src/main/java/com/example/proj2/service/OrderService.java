@@ -9,7 +9,8 @@ import com.example.proj2.repository.OrderRepository;
 
 @Service
 public class OrderService {
-    public OrderRepository orderRepository;
+    public final OrderRepository orderRepository;
+
     public OrderService(OrderRepository orderRepository)
     {
         this.orderRepository=orderRepository;

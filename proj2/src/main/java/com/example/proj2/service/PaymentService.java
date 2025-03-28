@@ -9,7 +9,7 @@ import com.example.proj2.repository.PaymentRepository;
 
 @Service
 public class PaymentService {
-    public PaymentRepository paymentRepository;
+    public final PaymentRepository paymentRepository;
     public PaymentService(PaymentRepository paymentRepository){ 
         this.paymentRepository=paymentRepository;
     }
